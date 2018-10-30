@@ -57,10 +57,20 @@
           }
           function login_exec(){
             $email = $_POST['email'];
-            $pass = $_POST['pass'];
+            $pass = $_POST['password'];
 
-            $qry = "SELECT * FROM `staff` WHERE `email` = '$email'";
-            
+            include('class/connect.php');
+            $qry = "SELECT * FROM `staff` WHERE `email` = '$email' AND `password`= '$pass'";
+            $qry_exec = mysqli_query($conn,$qry)or die(mysqli_error($conn));
+            if(mysqli_num_rows($qry_exec)== "1"){
+              session_start();
+              $res = mysqli_fetch_array($qry_exec)or die(mysqli_error($conn));
+              $_SESSION['fname'] = $res['fname'];
+              $_SESSION['email'] = $res['email'];
+              $_SESSION['image'] = $res['image'];
+              
+              header('Location:dashboard.php');
+            }
             
           }
           ?>
