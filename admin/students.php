@@ -27,7 +27,7 @@
 
   <body id="page-top">
 <?php 
-include 'sidebar.html';
+include 'sidebar.php';
 ?>
       <div id="content-wrapper">
 

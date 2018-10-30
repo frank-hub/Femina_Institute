@@ -68,8 +68,10 @@
               $_SESSION['fname'] = $res['fname'];
               $_SESSION['email'] = $res['email'];
               $_SESSION['image'] = $res['image'];
-              
+              $_SESSION["member_id"] = $res['id'];
+              $_SESSION['loggedin_time'] = time();
               header('Location:dashboard.php');
+              exit();
             }
             
           }

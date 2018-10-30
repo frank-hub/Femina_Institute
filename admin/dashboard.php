@@ -1,3 +1,7 @@
+<?php
+  
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +31,8 @@
 
   <body id="page-top">
     <?php
-    include 'sidebar.html';
+    include 'sidebar.php';
+
     ?>
       <div id="content-wrapper">
 
@@ -36,7 +41,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
+              <a href="#">Dashbord</a>
             </li>
             <li class="breadcrumb-item active">Overview</li>
           </ol>
