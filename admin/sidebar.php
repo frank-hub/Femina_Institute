@@ -114,7 +114,7 @@ if($_SESSION['fname']== false) {
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="staffs.php">
                   <i class="fas fa-fw fa-user"></i>
                   <span>Staff</span></a>
               </li>

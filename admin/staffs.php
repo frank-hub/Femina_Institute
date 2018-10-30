@@ -34,7 +34,7 @@ include 'sidebar.php';
         <div class="container-fluid">
 
                 <?php 
-      if (isset($_POST['register'])) {
+      if (isset($_POST['staff_reg'])) {
         insert();
       }
       
@@ -54,18 +54,19 @@ include 'sidebar.php';
                   $name = $_POST['fname'];
                   $gender = $_POST['gender'];
                   $email = $_POST['email'];
-                  $course = $_POST['course'];
+                  $pos = $_POST['pos'];
                   $nid = $_POST['nid'];
+                  $pass = $_POST['pass'];
                   $fname  = $_POST['fname'];
-                  $dob = $_POST['dob'];
+                 
                   
-                   $qry = "INSERT INTO `student`(`fname`, `course`, `national_id`,`dob`, `email`, `gender`, `image`)
-                   VALUES('$name','$course','$nid','$dob','$email','$gender','$names')";
+                   $qry = "INSERT INTO `staff`(`fname`, `gender`, `email`, `position`, `password`, `image`, `no_id`) 
+                   VALUES ('$name','$gender','$email','$pos','$pass','$names','$nid')";
                    if (mysqli_query($conn,$qry)or die(mysqli_error($conn))) {
                       ?>
                       <div class="btn alert alert-info alert-dismissable flex-center" role="alert">
                           <button type="button " class="close" data-dismiss="alert" aria-label="close">
-                          <strong>Success</strong> Student <?php echo $name ?> Saved You can Close this Window.
+                          Staff <?php echo $name ?> Saved You can Close this Window.
                               <span aria-hidden="true">&times;</span>
                           </button>
                       </div>
@@ -94,15 +95,15 @@ include 'sidebar.php';
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Students</li>
+            <li class="breadcrumb-item active">Staffs</li>
           </ol>
 
-          <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Print">
+          <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Print">
             <i class="fa fa-print"></i>
           </button>
-          <!-- Add student Modal -->
+          <!-- Add Staff Modal -->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-            Add Student
+            Add Staff
           </button>
 
           <!-- Modal -->
@@ -124,18 +125,8 @@ include 'sidebar.php';
                     <input type="text" class="form-control" name="fname" id="fname" placeholder="Full Name">
                   </div>
                   <div class="form-group">
-                      <label for="courses">Courses To Apply</label>
-                      <select name="course" class="form-control"> <!--Supplement an id here instead of using 'text'-->
-                        <option value="first" selected>--Select Course--</option> 
-                        <option value="Computer Packages">Computer Packages</option>
-                        <option value="Accounting(CPA)">Accounting(CPA)</option>
-                        <option value="Business Management">Business Management</option>
-                        <option value="Youth Mentorship">Youth Mentorship</option>
-                      </select>
-                  </div>
-                  <div class="form-group">
                     <label for="image">Image</label>
-                    <input type="file" class="form-control" name="image" id="image" placeholder="Image Of Student">
+                    <input type="file" class="form-control" name="image" id="image" placeholder="Image Of Staff">
                   </div>
                   <div class="form-group form-check">
                   <div class="form-check">
@@ -151,13 +142,13 @@ include 'sidebar.php';
                     </label>
                   </div>
                   </div>
-                  
+                  <div class="form-group">
+                        <label for="pos">Position</label>
+                        <input type="text" name="pos" class="form-control" id="pos" placeholder="Enter Your Position">
+                  </div>
                    </div>
                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="dob">Date Of Birth</label>
-                        <input type="date" name="dob" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      </div>
+                      
                       <div class="form-group">
                         <label for="nid">National ID</label>
                         <input type="text" name="nid" class="form-control" id="nid"  placeholder="National ID" maxlength="8">
@@ -167,13 +158,17 @@ include 'sidebar.php';
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                       </div>
+                      <div class="form-group">
+                        <label for="pass">Password</label>
+                        <input type="password" name="pass" class="form-control" id="pass"  placeholder="Password" minlength="7" maxlength="8">
+                      </div>
                    </div>
                  </div>
                 
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" name="register" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="staff_reg" class="btn btn-primary">Submit</button>
                 </div>
                 </form>
 
@@ -184,14 +179,14 @@ include 'sidebar.php';
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Student Data Table</div>
+              Staff Data Table</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Full Name</th>
-                      <th>Course</th>
+                      <th>Position</th>
                       <th>Email</th>
                       <th>National ID</th>
                       <th>Gender</th>
@@ -202,7 +197,7 @@ include 'sidebar.php';
                   <tfoot>
                     <tr>
                     <th>Full Name</th>
-                      <th>Course</th>
+                      <th>Position</th>
                       <th>Email</th>
                       <th>National ID</th>
                       <th>Gender</th>
@@ -213,15 +208,15 @@ include 'sidebar.php';
                   <tbody>
                   <?php 
                   include'class/connect.php';
-                  $qry = "SELECT * FROM `student`";
+                  $qry = "SELECT * FROM `staff`";
                   $exec = mysqli_query($conn,$qry);
                   while($result = mysqli_fetch_array($exec)){ ?>
                   <tr>
                   <!-- `id`, `fname`, `course`, `dob`, `email`, `gender`, `image`, `timestamp` -->
                       <td><?php echo $result['fname'] ?></td>
-                      <td><?php echo $result['course'] ?></td>
+                      <td><?php echo $result['position'] ?></td>
                       <td><?php echo $result['email'] ?></td>
-                      <td><?php echo $result['national_id'] ?></td>
+                      <td><?php echo $result['no_id'] ?></td>
                       <td><?php echo $result['gender'] ?></td>
                       <td><?php echo date("M jS, Y",strtotime($result['timestamp'])); ?></td>
                       <td>
