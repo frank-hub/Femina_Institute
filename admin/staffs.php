@@ -220,12 +220,13 @@ include 'sidebar.php';
                       <td><?php echo $result['gender'] ?></td>
                       <td><?php echo date("M jS, Y",strtotime($result['timestamp'])); ?></td>
                       <td>
-                      <button class="btn btn-sm btn-success"><i class="fa fa-edit"></i></button>
+                      <!-- <button class="btn btn-sm btn-success"><i class="fa fa-edit"></i></button> -->
                       <button class="delete btn btn-sm btn-danger" id='del_<?= $result['id'] ?>' style="padding: 2px;margin: 0px;margin-left:5px;">
                                           <i class="fa fa-trash"></i><span>
                                               
                                           </span>
-                                      </button>                      </td>
+                                      </button>  
+                        </td>
                     </tr>
                  <?php }
                   ?>
@@ -285,6 +286,8 @@ include 'sidebar.php';
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="../js/bootbox.js"></script>
+
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -299,7 +302,42 @@ include 'sidebar.php';
 
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="../js/bootbox.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+  // Delete 
+  $('.delete').click(function(){
+    var el = this;
+    var id = this.id;
+    var splitid = id.split("_");
+    // Delete id
+    var deleteid = splitid[1];
+ 
+    // Confirm box
+    bootbox.confirm("Are you sure want to delete?", function(result) {
+ 
+       if(result){
+         // AJAX Request
+         $.ajax({
+           url: 'delete_staff.php',
+           type: 'POST',
+           data: { id:deleteid },
+           success: function(response){
+             // Removing row from HTML Table
+             $(el).closest('tr').css('background','tomato');
+             $(el).closest('tr').fadeOut(800, function(){ 
+               $(this).remove();
+             });
+           }
+         });
+       }
+ 
+    });
+ 
+  });
+});
+    </script>
   </body>
 
 </html>
