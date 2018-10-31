@@ -97,9 +97,9 @@ include 'sidebar.php';
             <li class="breadcrumb-item active">Students</li>
           </ol>
 
-          <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Print">
+          <a href="pdf_students.php" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Print">
             <i class="fa fa-print"></i>
-          </button>
+          </a>
           <!-- Add student Modal -->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
             Add Student

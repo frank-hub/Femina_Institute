@@ -221,8 +221,11 @@ include 'sidebar.php';
                       <td><?php echo date("M jS, Y",strtotime($result['timestamp'])); ?></td>
                       <td>
                       <button class="btn btn-sm btn-success"><i class="fa fa-edit"></i></button>
-                      <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                      </td>
+                      <button class="delete btn btn-sm btn-danger" id='del_<?= $result['id'] ?>' style="padding: 2px;margin: 0px;margin-left:5px;">
+                                          <i class="fa fa-trash"></i><span>
+                                              
+                                          </span>
+                                      </button>                      </td>
                     </tr>
                  <?php }
                   ?>

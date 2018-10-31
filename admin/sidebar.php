@@ -44,7 +44,7 @@ if($_SESSION['fname']== false) {
       
             <!-- Navbar -->
             <ul class="navbar-nav ml-auto ml-md-0">
-              <li class="nav-item dropdown no-arrow mx-1">
+              <!-- <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-bell fa-fw"></i>
                   <span class="badge badge-danger">9+</span>
@@ -67,14 +67,14 @@ if($_SESSION['fname']== false) {
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-              </li>
+              </li> -->
               <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                   <a class="dropdown-item" href="#"><?php echo $_SESSION['fname']?></a>
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="profile.php">Profile</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
                 </div>
@@ -103,7 +103,7 @@ if($_SESSION['fname']== false) {
                     <i class="fas fa-fw fa-download"></i>
                     <span>Downloads Upload</span></a>
               </li>
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-fw fa-folder"></i>
                   <span>Pages</span>
@@ -112,7 +112,7 @@ if($_SESSION['fname']== false) {
                   <h6 class="dropdown-header">Components:</h6>
                   <a class="dropdown-item" href="fee_structure.php">Fees Structure</a>
                 </div>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="staffs.php">
                   <i class="fas fa-fw fa-user"></i>

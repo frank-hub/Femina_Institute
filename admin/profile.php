@@ -84,70 +84,40 @@ include 'sidebar.php';
                 ?>
 
         <div class="row">
-          <div class="col-md-6">
-            <div class="card">
-            <div class="card-header">
-              <h3 class="text-center">Downloads Form</h3>
-            </div>
-              <div class="card-body">
-                <form method="post" action="" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="name">Name of The file</label>
-                    <input type="text" class="form-control-file" id="name" name="name" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlFile1">Example file input</label>
-                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
-                  </div>
-                  <button type="submit" name="upload" class="btn btn-primary btn-block">Add Download</button>
-                </form>
-              </div>
+          <div class="col-md-4">
+            <div class="thumbmail">
+                <div class="thumbnail-image">
+                    <img src="uploads/" alt="no image">
+                </div>
             </div>
           </div>
-          <div class="col-md-6">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Status</th>
-                      <th>Created On</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                    <th>Name</th>
-                      <th>Status</th>
-                      <th>Created On</th>
-                      <th>Action</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                  <?php 
-                  include'class/connect.php';
-                  $qry = "SELECT * FROM `downloads`";
-                  $exec = mysqli_query($conn,$qry);
-                  while($result = mysqli_fetch_array($exec)){
-                   
-                    ?>
-                  <tr>
-                      <td><?php echo $result['name'] ?></td>
-                      <td><?php echo $result['status'] ?></td>
-                      <td><?php echo date("M jS, Y",strtotime($result['timestamp'])); ?></td>
-                      <td>
-                      <button class="delete btn btn-sm btn-danger" id='del_<?= $result['id'] ?>' style="padding: 2px;margin: 0px;margin-left:5px;">
-                                          <i class="fa fa-trash"></i><span>
-                                              
-                                          </span>
-                                      </button>
-                      </td>
-                    </tr>
-                 <?php }
-                  ?>
-                    
-                  </tbody>
-                </table>
-
+          <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                <h3 class="text-center">User Profile</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="fname">Full Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" value="<?php echo $_SESSION['fname'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pos">Position</label>
+                        <input type="text" class="form-control" id="pos" name="pos" value="<?php echo $_SESSION['pos'] ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Change Profile</label>
+                        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                    <button type="submit" name="upload" class="btn btn-primary btn-block">Update My Profile</button>
+                    </form>
+                </div>
+                </div>
           </div>
         </div>
         </div>

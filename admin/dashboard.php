@@ -62,7 +62,7 @@
                   <div class="mr-5"><?php echo $students['0'] ?> Students</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
+                  <!-- <span class="float-left">View Details</span> -->
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
                   </span>
@@ -75,7 +75,12 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-list"></i>
                   </div>
-                  <div class="mr-5">4 Downloads</div>
+                  <?php
+                  include 'class/connect.php';
+                  $count = mysqli_query($conn ,"SELECT COUNT('id') FROM downloads")or die(mysqli_error($conn));
+                  $downloads = mysqli_fetch_array($count);
+                  ?>
+                  <div class="mr-5"><?php echo $downloads['0'] ?> Downloads</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="#">
                   <span class="float-left">View Details</span>
@@ -85,7 +90,7 @@
                 </a>
               </div>
             </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
+            <!-- <div class="col-xl-3 col-sm-6 mb-3">
               <div class="card text-white bg-success o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
@@ -100,14 +105,19 @@
                   </span>
                 </a>
               </div>
-            </div>
+            </div> -->
             <div class="col-xl-3 col-sm-6 mb-3">
               <div class="card text-white bg-danger o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-life-ring"></i>
                   </div>
-                  <div class="mr-5">13 Staff</div>
+                  <?php
+                  include 'class/connect.php';
+                  $count = mysqli_query($conn ,"SELECT COUNT('id') FROM staff")or die(mysqli_error($conn));
+                  $staff = mysqli_fetch_array($count);
+                  ?>
+                  <div class="mr-5"><?php echo $staff['0'] ?> Staff</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="#">
                   <span class="float-left">View Details</span>
@@ -126,60 +136,51 @@
               Data Table Example</div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
+                      <th>Full Name</th>
                       <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Email</th>
+                      <th>National ID</th>
+                      <th>Gender</th>
+                      <th>Joined At</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
+                    <th>Full Name</th>
                       <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Email</th>
+                      <th>National ID</th>
+                      <th>Gender</th>
+                      <th>Joined At</th>
+                      <th>Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>Frank</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
+                  <?php 
+                  include'class/connect.php';
+                  $qry = "SELECT * FROM `staff`";
+                  $exec = mysqli_query($conn,$qry);
+                  while($result = mysqli_fetch_array($exec)){ ?>
+                  <tr>
+                  <!-- `id`, `fname`, `course`, `dob`, `email`, `gender`, `image`, `timestamp` -->
+                      <td><?php echo $result['fname'] ?></td>
+                      <td><?php echo $result['position'] ?></td>
+                      <td><?php echo $result['email'] ?></td>
+                      <td><?php echo $result['no_id'] ?></td>
+                      <td><?php echo $result['gender'] ?></td>
+                      <td><?php echo date("M jS, Y",strtotime($result['timestamp'])); ?></td>
+                      <td>
+                      <button class="btn btn-sm btn-success"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                      </td>
                     </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>63</td>
-                      <td>2011/07/25</td>
-                      <td>$170,750</td>
-                    </tr>
-                    <tr>
-                      <td>Michael Bruce</td>
-                      <td>Javascript Developer</td>
-                      <td>Singapore</td>
-                      <td>29</td>
-                      <td>2011/06/27</td>
-                      <td>$183,000</td>
-                    </tr>
-                    <tr>
-                      <td>Donna Snider</td>
-                      <td>Customer Support</td>
-                      <td>New York</td>
-                      <td>27</td>
-                      <td>2011/01/25</td>
-                      <td>$112,000</td>
-                    </tr>
+                 <?php }
+                  ?>
+                    
                   </tbody>
                 </table>
               </div>
@@ -223,7 +224,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="index.php">Logout</a>
           </div>
         </div>
       </div>
