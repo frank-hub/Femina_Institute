@@ -54,7 +54,12 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-comments"></i>
                   </div>
-                  <div class="mr-5">26 Students</div>
+                  <?php
+                  include 'class/connect.php';
+                  $count = mysqli_query($conn ,"SELECT COUNT('id') FROM student")or die(mysqli_error($conn));
+                  $students = mysqli_fetch_array($count);
+                  ?>
+                  <div class="mr-5"><?php echo $students['0'] ?> Students</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="#">
                   <span class="float-left">View Details</span>

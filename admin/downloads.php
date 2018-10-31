@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Blank Page</title>
+    <title>Femina Institute</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,123 +27,136 @@
   </head>
 
   <body id="page-top">
-
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-      <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
-
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Navbar Search -->
-      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-
-      <!-- Navbar -->
-      <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bell fa-fw"></i>
-            <span class="badge badge-danger">9+</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-envelope fa-fw"></i>
-            <span class="badge badge-danger">7</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Activity Log</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-          </div>
-        </li>
-      </ul>
-
-    </nav>
-
-    <div id="wrapper">
-
-      <!-- Sidebar -->
-      <ul class="sidebar navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.html">Login</a>
-            <a class="dropdown-item" href="register.html">Register</a>
-            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="404.html">404 Page</a>
-            <a class="dropdown-item active" href="blank.html">Blank Page</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-        </li>
-      </ul>
-
+<?php 
+include 'sidebar.php';
+?>
       <div id="content-wrapper">
 
         <div class="container-fluid">
 
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="index.html">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Blank Page</li>
-          </ol>
+   <?php 
+      if (isset($_POST['upload'])) {
+        insert();
+      }
+      
+      function insert(){
+      include 'class/connect.php';
+        if (isset($_FILES['file'])) 
+            {  
+               
+               $names = $_FILES['file']['name'];
+               $sizes = $_FILES['file']['size'];
+               $types = $_FILES['file']['type'];
+               $tmp = $_FILES['file']['tmp_name'];
+               $folder_location = 'uploads/file/'.$names;
+               $move = move_uploaded_file($tmp,$folder_location);
+                
+               if ($move) {
+                  $name = $_POST['name'];
+                   $qry = "INSERT INTO `downloads`(`name`, `file`)  
+                   VALUES ('$name',$names')";
+                   if (mysqli_query($conn,$qry)or die(mysqli_error($conn))) {
+                      ?>
+                      <div class="btn alert alert-info alert-dismissable flex-center" role="alert">
+                          <button type="button " class="close" data-dismiss="alert" aria-label="close">
+                          <?php echo $name ?> Document Was Uploaded 
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <?php
+               }
+               else{
+                   ?>
+                   <div class="btn btn-block alert alert-danger alert-dismissable" role="alert">
+                          <button type="button " class="close" data-dismiss="alert" aria-label="close">
+                          <strong>Failed !</strong>The Product failed to upload try again .
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                   <?php
+               }
+           }
+        }
+        else{
+          echo "help";
+        }
+        mysqli_close($conn);
+      }
+                ?>
 
-          <!-- Page Content -->
-          <h1>Blank Page</h1>
-          <hr>
-          <p>This is a great starting point for new custom pages.</p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+            <div class="card-header">
+              <h3 class="text-center">Downloads Form</h3>
+            </div>
+              <div class="card-body">
+                <form method="post" action="" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="name">Name of The file</label>
+                    <input type="text" class="form-control-file" id="name" name="name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlFile1">Example file input</label>
+                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                  </div>
+                  <button type="submit" name="upload" class="btn btn-primary btn-block">Add Download</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+          <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
 
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">File</th>
+      <th scope="col">Name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>File</td>
+      <td>Name</td>
+      <td>Action</td>
+    </tr>
+  </tbody>
+</table>
+          </div>
+        </div>
         </div>
         <!-- /.container-fluid -->
 
@@ -192,8 +206,15 @@
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="js/demo/datatables-demo.js"></script>
 
   </body>
 
